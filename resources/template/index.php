@@ -1,6 +1,14 @@
 <?php
+    if (strcasecmp(getenv('CUSTOM_ENV_VALUE'), "PRODUCTION") == 0) {
+      echo "<div id=\"env-container\" class=\"hidden\">\n" . getenv('CUSTOM_ENV_VALUE') ."</div>\n";
+       require_once(realpath(dirname(__FILE__) . "/../config-prod.php"));
+    } else {
 
-    require_once(realpath(dirname(__FILE__) . "/../config-default.php"));
+      echo "<div id=\"env-container\" class=\"hidden\">\n Non-prod " . getenv('CUSTOM_ENV_VALUE') ." </div>\n";
+     require_once(realpath(dirname(__FILE__) . "/../config-default.php"));
+    }
+    //
+
     require_once(LIBRARY_PATH . "/templateFunctions.php");
 
     /*
@@ -14,7 +22,7 @@
     $variables = array(
         'setInIndexDotPhp' => $setInIndexDotPhp
     );
-
+    // echo "The value of Environment Name  retrieved is " . getenv('GAURI_ENV');
     renderLayoutWithContentFile("home.php", $variables);
 
 ?>

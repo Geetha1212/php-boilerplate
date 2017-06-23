@@ -1,5 +1,14 @@
 <?php
-    require_once(realpath(dirname(__FILE__) . "/../config-default.php"));
+    $configs = "";
+    if (strcasecmp(getenv('CUSTOM_ENV_VALUE'), "PRODUCTION") == 0) {
+      echo "<div id=\"env-container\" class=\"hidden\">\n" . getenv('CUSTOM_ENV_VALUE') ."</div>\n";
+       require_once(realpath(dirname(__FILE__) . "/../config-prod.php"));
+       $configs = include(realpath(dirname(__FILE__) . "/../config-prod.php"));
+    } else {
+      echo "<div id=\"env-container\" class=\"hidden\">\n Non-prod " . getenv('CUSTOM_ENV_VALUE') ." </div>\n";
+     require_once(realpath(dirname(__FILE__) . "/../config-default.php"));
+     $configs = include(realpath(dirname(__FILE__) . "/../config-default.php"));
+    }
 
     function renderLayoutWithContentFile($contentFile, $variables = array())
     {
@@ -15,10 +24,9 @@
             }
         }
 
-      //echo "<div id=\"header-container\" class=\"container\" >\n"
-      //echo "<div>  </div>"
+
         require_once(TEMPLATES_PATH . "/header.php");
-      //  echo "</div>\n";
+
 
         echo "</div>\n<div id=\"main-container\" class=\"container\">\n"
            . "\t<div id=\"mainContent\" class=\"col-md-9\">\n";
@@ -32,7 +40,8 @@
             */
             require_once(TEMPLATES_PATH . "/error.php");
         }
-
+        global $configs;
+        print_r ($configs["db"]["db1"]["host"]);
         // close content div and open right bar
         echo "\t</div>\n<div class=\"col-md-3\">\n";
 
@@ -40,7 +49,7 @@
 
         // close container div
         echo "</div>\n</div>\n";
-
+        // echo $config
         require_once(TEMPLATES_PATH . "/footer.php");
     }
 ?>

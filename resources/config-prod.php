@@ -24,7 +24,7 @@ $config = array(
         )
     ),
     "urls" => array(
-        "baseUrl" => "http://product.geetha.com"
+        "baseUrl" => "http://production.geetha.com"
     ),
     "paths" => array(
         //"resources" => "/path/to/resources",
@@ -58,4 +58,5 @@ defined("TEMPLATES_PATH")
 ini_set("error_reporting", "true");
 error_reporting(E_ALL|E_STRCT);
 
+return $config
 ?>
